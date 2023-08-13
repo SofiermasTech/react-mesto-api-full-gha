@@ -1,3 +1,5 @@
+import { BASE_URL } from './auth';
+
 class Api {
    constructor(config) {
       this._url = config.url;
@@ -93,11 +95,11 @@ class Api {
 }
 
 const api = new Api({
-   url: 'https://mesto.nomoreparties.co/v1/cohort-64',
+   url: BASE_URL,
    headers: {
-      authorization: '4540ef64-f0c3-404e-8fd0-3e3d77e1eef2',
-      'Content-Type': 'application/json'
-   }
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
+    },
 
 });
 
