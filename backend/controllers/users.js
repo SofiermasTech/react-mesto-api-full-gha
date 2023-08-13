@@ -6,6 +6,7 @@ const NotFoundError = require('../utils/NotFoundError');
 const BadRequestError = require('../utils/BadRequestError');
 const ConflictError = require('../utils/ConflictError');
 
+const { NODE_ENV, JWT_SECRET } = process.env;
 const { SUCCESS_RES } = require('../utils/response-status');
 
 const getUsers = (req, res, next) => {
@@ -29,16 +30,6 @@ const createUser = (req, res, next) => {
   const {
     email, password, name, about, avatar,
   } = req.body;
-  /*
-    if (!email || !password) {
-      next(new BadRequestError('Неправильный логин или пароль.'));
-    }
-  return User.findOne({ email }).then((user) => {
-    if (user) {
-      next(new ConflictError(`Пользователь с email: ${email} уже существует.`));
-    }
-    return bcrypt.hash(password, 10);
-  }) */
   bcrypt.hash(password, 10)
     .then((hash) => User.create({
       email,
@@ -79,7 +70,7 @@ const login = (req, res, next) => {
 
       const token = jwt.sign(
         { _id: user._id },
-        'some-secret-key',
+        NODE_ENV === 'production' ? JWT_SECRET : 'some-secret-key',
         { expiresIn: '7d' },
       );
       return res.send({ token });
