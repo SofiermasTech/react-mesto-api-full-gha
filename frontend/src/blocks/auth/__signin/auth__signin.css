@@ -1,0 +1,11 @@
+.auth__signin {
+   display: block;
+   color: #fff;
+   font-family: 'Inter', Arial, Helvetica, sans-serif;
+   font-size: 14px;
+   line-height: 17px;
+   text-align: center;
+   margin: 15px 0 0;
+   padding: 0;
+   transition: .8s ease;
+}

@@ -1,0 +1,17 @@
+.card__button-deleted {
+   width: 18px;
+   height: 19px;
+   cursor: pointer;
+   margin: 0;
+   padding: 0;
+   border: none;
+   background: url('../../../images/deleted.svg') center no-repeat;
+   object-fit: contain;
+   position: absolute;
+   top: 20px;
+   right: 20px;
+}
+
+.card__button-deleted:hover {
+   opacity: .6;
+}

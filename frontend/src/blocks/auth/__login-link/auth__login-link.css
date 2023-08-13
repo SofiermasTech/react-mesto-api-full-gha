@@ -1,0 +1,12 @@
+.auth__login-link {
+   text-decoration: none;
+   color: #fff;
+   font-family: 'Inter', Arial, Helvetica, sans-serif;
+   font-size: 14px;
+   line-height: 17px;
+}
+
+.auth__login-link:hover {
+   opacity: .6;
+   cursor: pointer;
+}
