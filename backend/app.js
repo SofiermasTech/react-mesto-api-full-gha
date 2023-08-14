@@ -12,7 +12,7 @@ const helmet = require('helmet');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const errorsHandler = require('./utils/errorsHandler');
 const mainRouter = require('./routes/index');
-const corsHeaders = require('./middlewares/corsHeaders');
+const { corsHeaders } = require('./middlewares/corsHeaders');
 
 const { PORT = 3000, DB_URL = 'mongodb://127.0.0.1:27017/mestodb' } = process.env;
 const app = express();
