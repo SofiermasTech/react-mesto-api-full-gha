@@ -10,6 +10,7 @@ const headers = {
 export function register({ password, email }) {
    return fetch(`${BASE_URL}/signup`, {
       method: 'POST',
+      credentials: 'include',
       headers,
       body: JSON.stringify({ password, email })
    })
@@ -19,6 +20,7 @@ export function register({ password, email }) {
 export function authorize({ password, email }) {
    return fetch(`${BASE_URL}/signin`, {
       method: 'POST',
+      credentials: 'include',
       headers,
       body: JSON.stringify({ password, email })
    })
@@ -28,9 +30,10 @@ export function authorize({ password, email }) {
 export function checkToken(token) {
    return fetch(`${BASE_URL}/users/me`, {
       method: 'GET',
+      credentials: 'include',
       headers: {
          ...headers,
-         Authorization: `Bearer ${token}`,
+         authorization: `Bearer ${token}`,
       }
    })
       .then(checkResponse)

@@ -21,6 +21,7 @@ class Api {
    //получение 
    getInitialCards() {
       return fetch(`${this._url}/cards`, {
+         credentials: 'include',
          headers: this._headers
       })
          .then(res => { return this._parseResponse(res); });
@@ -30,6 +31,7 @@ class Api {
    addNewCard(data) {
       return fetch(`${this._url}/cards`, {
          method: 'POST',
+         credentials: 'include',
          headers: this._headers,
          body: JSON.stringify({ 
             name: data.name, 
@@ -41,6 +43,7 @@ class Api {
    //удаление
    deleteCard(cardId) {
       return fetch(`${this._url}/cards/${cardId}`, {
+         credentials: 'include',
          headers: this._headers,
          method: 'DELETE'
       })
@@ -50,6 +53,7 @@ class Api {
    //лайк-deleted like
    changeLikeCardStatus(cardId, isLiked) {
       return fetch(`${this._url}/cards/${cardId}/likes`, {
+         credentials: 'include',
          headers: this._headers,
          method: `${!isLiked ? 'DELETE' : 'PUT'}`,
          
@@ -63,6 +67,7 @@ class Api {
    //информация о пользователе с сервера
    getUserInfo() {
       return fetch(`${this._url}/users/me`, {
+         credentials: 'include',
          headers: this._headers,
          method: 'GET'
       })
@@ -72,6 +77,7 @@ class Api {
    //изменение информации через попап
    setUserInfo(data) {
       return fetch(`${this._url}/users/me`, {
+         credentials: 'include',
          headers: this._headers,
          method: 'PATCH',
          body: JSON.stringify({
@@ -85,6 +91,7 @@ class Api {
    //редактирование аватара
    setUserAvatar(data) {
       return fetch(`${this._url}/users/me/avatar`, {
+         credentials: 'include',
          headers: this._headers,
          method: 'PATCH',
          body: JSON.stringify({ avatar: data.avatar })

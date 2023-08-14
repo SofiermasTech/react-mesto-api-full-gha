@@ -12,9 +12,12 @@ const helmet = require('helmet');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const errorsHandler = require('./utils/errorsHandler');
 const mainRouter = require('./routes/index');
+const corsHeaders = require('./middlewares/corsHeaders');
 
 const { PORT = 3000, DB_URL = 'mongodb://127.0.0.1:27017/mestodb' } = process.env;
 const app = express();
+app.use(helmet());
+app.use(cors);
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
@@ -26,17 +29,12 @@ mongoose.connect(DB_URL, {
   useNewUrlParser: true,
 });
 
-app.use(cors({
-  origin: ['https://volserma.nomoreparties.co', 'https://localhost:3000'],
-  credentials: true,
-}));
-
 app.use(express.json()); // для собирания JSON-формата
 app.use(express.urlencoded({ extended: true })); // для приёма веб-страниц внутри POST-запроса
 app.use(cookieParser());
 
 app.use(limiter);
-app.use(helmet());
+app.use(corsHeaders);
 app.use(requestLogger);
 
 app.use('/', mainRouter);
