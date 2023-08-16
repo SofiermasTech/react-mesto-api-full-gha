@@ -30,6 +30,16 @@ const createUser = (req, res, next) => {
   const {
     email, password, name, about, avatar,
   } = req.body;
+  /*
+    if (!email || !password) {
+      next(new BadRequestError('Неправильный логин или пароль.'));
+    }
+  return User.findOne({ email }).then((user) => {
+    if (user) {
+      next(new ConflictError(`Пользователь с email: ${email} уже существует.`));
+    }
+    return bcrypt.hash(password, 10);
+  }) */
   bcrypt.hash(password, 10)
     .then((hash) => User.create({
       email,
@@ -70,7 +80,7 @@ const login = (req, res, next) => {
 
       const token = jwt.sign(
         { _id: user._id },
-        NODE_ENV === 'production' ? JWT_SECRET : 'some-secret-key',
+        NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret',
         { expiresIn: '7d' },
       );
       return res.send({ token });

@@ -45,7 +45,7 @@ function App() {
          auth
             .checkToken(token)
             .then((res) => {
-               setEmail(res.data.email);
+               setEmail(res.email);
                setIsLoggedIn(true);
                navigate("/main", { replace: true });
             })
@@ -53,7 +53,7 @@ function App() {
       } else {
          return;
       }
-      console.log(token);
+      // console.log(token);
    }
 
    useEffect(() => {

@@ -1,7 +1,7 @@
 import { checkResponse } from "../utils/checkResponse.js";
-export const BASE_URL = 'https://api.volserma.nomoreparties.co';
-//export const BASE_URL = 'https://auth.nomoreparties.co';
-//export const BASE_URL = 'https://localhost:3000';
+//export const BASE_URL = 'https://api.volserma.nomoreparties.co';
+// export const BASE_URL = 'https://auth.nomoreparties.co';
+export const BASE_URL = 'http://localhost:3000';
 const headers = {
    'Accept': 'application/json',
    'Content-Type': 'application/json'
@@ -10,7 +10,6 @@ const headers = {
 export function register({ password, email }) {
    return fetch(`${BASE_URL}/signup`, {
       method: 'POST',
-      credentials: 'include',
       headers,
       body: JSON.stringify({ password, email })
    })
@@ -20,7 +19,6 @@ export function register({ password, email }) {
 export function authorize({ password, email }) {
    return fetch(`${BASE_URL}/signin`, {
       method: 'POST',
-      credentials: 'include',
       headers,
       body: JSON.stringify({ password, email })
    })
@@ -30,7 +28,6 @@ export function authorize({ password, email }) {
 export function checkToken(token) {
    return fetch(`${BASE_URL}/users/me`, {
       method: 'GET',
-      credentials: 'include',
       headers: {
          ...headers,
          authorization: `Bearer ${token}`,

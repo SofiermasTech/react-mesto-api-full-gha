@@ -3,21 +3,18 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const { errors } = require('celebrate');
-const cors = require('cors');
 
 // Защита сервера
 const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
-
+const cors = require('./middlewares/cors');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
+
 const errorsHandler = require('./utils/errorsHandler');
 const mainRouter = require('./routes/index');
-const { corsHeaders } = require('./middlewares/corsHeaders');
 
 const { PORT = 3000, DB_URL = 'mongodb://127.0.0.1:27017/mestodb' } = process.env;
 const app = express();
-app.use(helmet());
-app.use(cors);
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
@@ -34,7 +31,8 @@ app.use(express.urlencoded({ extended: true })); // для приёма веб-�
 app.use(cookieParser());
 
 app.use(limiter);
-app.use(corsHeaders);
+app.use(helmet());
+app.use(cors);
 app.use(requestLogger);
 
 app.use('/', mainRouter);
