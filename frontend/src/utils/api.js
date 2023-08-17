@@ -43,7 +43,7 @@ class Api {
             link
          })
       })
-      .then(this._parseResponse);
+         .then(this._parseResponse);
    }
 
 
@@ -57,7 +57,7 @@ class Api {
             authorization: `Bearer ${token}`,
          },
       })
-      .then(this._parseResponse);
+         .then(this._parseResponse);
    }
 
    //лайк-deleted like
@@ -71,7 +71,7 @@ class Api {
          method: `${!isLiked ? 'DELETE' : 'PUT'}`,
 
       })
-      .then(this._parseResponse);
+         .then(this._parseResponse);
    }
 
 
@@ -87,7 +87,7 @@ class Api {
          },
          method: 'GET'
       })
-      .then(this._parseResponse)
+         .then(this._parseResponse)
    }
 
    //изменение информации через попап
@@ -104,7 +104,7 @@ class Api {
             about: data.about
          })
       })
-      .then(this._parseResponse);
+         .then(this._parseResponse);
    }
 
    //редактирование аватара
@@ -118,24 +118,13 @@ class Api {
          method: 'PATCH',
          body: JSON.stringify({ avatar: data.avatar })
       })
-      .then(this._parseResponse);
+         .then(this._parseResponse);
    }
 
 }
 
 const api = new Api({
-   /*
-   url: 'https://mesto.nomoreparties.co/v1/cohort-64',
-   headers: {
-      authorization: '4540ef64-f0c3-404e-8fd0-3e3d77e1eef2',
-      'Content-Type': 'application/json'
-   } */
-   // url: 'http://localhost:3000',
    url: 'http://api.volserma.nomoreparties.co',
-   headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
-   }
 });
 
 export default api;
