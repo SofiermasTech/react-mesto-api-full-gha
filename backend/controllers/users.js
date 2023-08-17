@@ -11,7 +11,7 @@ const { SUCCESS_RES } = require('../utils/response-status');
 
 const getUsers = (req, res, next) => {
   User.find({})
-    .then((users) => res.send({ data: users }))
+    .then((users) => res.send(users))
     .catch(next);
 };
 
@@ -30,16 +30,7 @@ const createUser = (req, res, next) => {
   const {
     email, password, name, about, avatar,
   } = req.body;
-  /*
-    if (!email || !password) {
-      next(new BadRequestError('Неправильный логин или пароль.'));
-    }
-  return User.findOne({ email }).then((user) => {
-    if (user) {
-      next(new ConflictError(`Пользователь с email: ${email} уже существует.`));
-    }
-    return bcrypt.hash(password, 10);
-  }) */
+
   bcrypt.hash(password, 10)
     .then((hash) => User.create({
       email,
@@ -111,7 +102,7 @@ const updateUser = (req, res, next) => {
       runValidators: true,
     },
   )
-    .then((user) => res.send({ data: user }))
+    .then((user) => res.send(user))
     .catch((err) => {
       if (err.name === 'ValidationError') {
         return next(new BadRequestError('Некорректные данные.'));
@@ -130,7 +121,7 @@ const updateAvatar = (req, res, next) => {
       runValidators: true,
     },
   )
-    .then((user) => res.send({ data: user }))
+    .then((user) => res.send(user))
     .catch((err) => {
       if (err.name === 'ValidationError') {
         return next(new BadRequestError('Некорректные данные.'));

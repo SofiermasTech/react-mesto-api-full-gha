@@ -14,7 +14,6 @@ class Api {
       }
    }
 
-
    /* Запросы на сервер для карточек */
 
    //получение 
@@ -27,11 +26,11 @@ class Api {
             //'Authorization': `Bearer ${jwt}`,
          },
       })
-         .then(res => { return this._parseResponse(res); });
+         .then(this._parseResponse);
    }
 
    //добавление
-   addNewCard(data) {
+   addNewCard({ name, link }) {
       const token = localStorage.getItem('token');
       return fetch(`${this._url}/cards`, {
          method: 'POST',
@@ -40,24 +39,25 @@ class Api {
             authorization: `Bearer ${token}`,
          },
          body: JSON.stringify({
-            name: data.name,
-            link: data.link
+            name,
+            link
          })
       })
-         .then(res => this._parseResponse(res));
+      .then(this._parseResponse);
    }
+
 
    //удаление
    deleteCard(cardId) {
       const token = localStorage.getItem('token');
       return fetch(`${this._url}/cards/${cardId}`, {
+         method: 'DELETE',
          headers: {
             'Content-Type': 'application/json',
             authorization: `Bearer ${token}`,
          },
-         method: 'DELETE'
       })
-         .then(res => this._parseResponse(res));
+      .then(this._parseResponse);
    }
 
    //лайк-deleted like
@@ -71,7 +71,7 @@ class Api {
          method: `${!isLiked ? 'DELETE' : 'PUT'}`,
 
       })
-         .then(res => this._parseResponse(res));
+      .then(this._parseResponse);
    }
 
 
@@ -87,7 +87,7 @@ class Api {
          },
          method: 'GET'
       })
-         .then(res => { return this._parseResponse(res); })
+      .then(this._parseResponse)
    }
 
    //изменение информации через попап
@@ -104,7 +104,7 @@ class Api {
             about: data.about
          })
       })
-         .then(res => this._parseResponse(res));
+      .then(this._parseResponse);
    }
 
    //редактирование аватара
@@ -118,7 +118,7 @@ class Api {
          method: 'PATCH',
          body: JSON.stringify({ avatar: data.avatar })
       })
-         .then(res => { return this._parseResponse(res) });
+      .then(this._parseResponse);
    }
 
 }

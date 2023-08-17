@@ -7,20 +7,20 @@ const headers = {
    'Content-Type': 'application/json'
 };
 
-export function register({ password, email }) {
+export function register({ email, password }) {
    return fetch(`${BASE_URL}/signup`, {
       method: 'POST',
       headers,
-      body: JSON.stringify({ password, email })
+      body: JSON.stringify({ email, password })
    })
       .then(checkResponse)
 };
 
-export function authorize({ password, email }) {
+export function authorize({ email, password }) {
    return fetch(`${BASE_URL}/signin`, {
       method: 'POST',
       headers,
-      body: JSON.stringify({ password, email })
+      body: JSON.stringify({ email, password })
    })
       .then(checkResponse)
 };
@@ -34,5 +34,5 @@ export function checkToken(token) {
       }
    })
       .then(checkResponse)
-      .then(data => data)
+      // .then(data => data)
 };

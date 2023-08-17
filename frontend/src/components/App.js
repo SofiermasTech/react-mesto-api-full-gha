@@ -45,23 +45,26 @@ function App() {
          auth
             .checkToken(token)
             .then((res) => {
-               setEmail(res.email);
-               setIsLoggedIn(true);
-               navigate("/main", { replace: true });
+               if (res) {
+                  setIsLoggedIn(true);
+                  setEmail(res.email);
+                  navigate("/main", { replace: true });
+               }
             })
             .catch((err) => { console.log(`Возникла ошибка, ${err}`) })
-      } else {
-         return;
       }
       // console.log(token);
    }
 
+
    useEffect(() => {
       tokenCheck();
+      // eslint-disable-next-line react-hooks/exhaustive-deps
    }, []);
 
    useEffect(() => {
       if (isLoggedIn) {
+         // setCurrentUser({})
          navigate('/main');
       }
    }, [navigate, isLoggedIn]);
@@ -124,7 +127,7 @@ function App() {
    };
 
    function handleCardLike(card) {
-      const isLiked = card.likes.some((i) => i._id === currentUser._id);
+      const isLiked = card.likes.some((id) => id === currentUser._id);
 
       api
          .changeLikeCardStatus(card._id, !isLiked)
@@ -142,12 +145,13 @@ function App() {
       api
          .deleteCard(cardId)
          .then(() => {
-            setCards((cards) => cards.filter(card => card._id !== cardId));
+            setCards((cards) => cards.filter((c) => c._id !== cardId));
          })
          .catch((err) => {
-            console.log(`Ошибка: ${err}`);
+            console.log(`Ошибка удаления карточки: ${err}`);
          });
    };
+
 
    const handleAddPlaceSubmit = (newData) => {
       api
@@ -181,14 +185,14 @@ function App() {
          .catch((err) => {
             console.log(`Ошибка регистрации, ${err}`);
             setStatusRegistration(false);
-            setIsInfoTooltipOpen(true);
+            setIsInfoTooltipOpen(false);
          })
          .finally(handleInfoTooltip);
    };
 
-   function handleLogin({ password, email }) {
+   function handleLogin({ email, password }) {
       return auth
-         .authorize({ password, email })
+         .authorize({ email, password })
          .then((data) => {
             if (data) {
                setIsLoggedIn(true);

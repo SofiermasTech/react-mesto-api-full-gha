@@ -7,8 +7,8 @@ const ForbiddenError = require('../utils/ForbiddenError');
 
 module.exports.createCard = (req, res, next) => {
   const { name, link } = req.body;
-
-  Card.create({ name, link, owner: req.user._id })
+  const owner = req.user._id;
+  Card.create({ name, link, owner })
     .then((card) => res.status(SUCCESS_RES).send(card))
     .catch((err) => {
       if (err.name === 'ValidationError') {
@@ -26,8 +26,8 @@ module.exports.getCards = (req, res, next) => {
 };
 
 module.exports.deleteCard = (req, res, next) => {
-  const { cardId } = req.params;
-  Card.findById(cardId)
+  // const { cardId } = req.params;
+  Card.findById(req.params.cardId)
     .then((card) => {
       if (!card) {
         throw new NotFoundError('Card not found');
@@ -35,7 +35,7 @@ module.exports.deleteCard = (req, res, next) => {
       if (!card.owner.equals(req.user._id)) {
         throw new ForbiddenError('Невозможно удалить чужую карточку.');
       } else {
-        Card.findByIdAndRemove(cardId)
+        Card.findByIdAndDelete(req.params.cardId)
           .orFail(() => new NotFoundError('Card not found'))
           .then(() => res.status(200).send({ message: 'Карточка удалена.' }))
           .catch(next);
