@@ -9,7 +9,7 @@
 
 ## Ссылки на проект
 
-IP-адрес 51.250.15.83
+IP 51.250.15.83
 
 Frontend https://volserma.nomoreparties.co
 
