@@ -18,7 +18,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy": "npm run build && scp -r ./build/* volserma@158.160.100.107:/home/volserma/react-mesto-api-full-gha/frontend"
+    "deploy": "npm run build && scp -r ./build/* volserma@51.250.15.83:/home/volserma/react-mesto-api-full-gha/frontend"
   },
   "eslintConfig": {
     "extends": [

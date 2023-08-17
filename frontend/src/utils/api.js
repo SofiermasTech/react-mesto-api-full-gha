@@ -124,7 +124,7 @@ class Api {
 }
 
 const api = new Api({
-   url: 'http://api.volserma.nomoreparties.co',
+   url: 'https://api.volserma.nomoreparties.co',
 });
 
 export default api;
