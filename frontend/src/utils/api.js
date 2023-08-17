@@ -130,7 +130,8 @@ const api = new Api({
       authorization: '4540ef64-f0c3-404e-8fd0-3e3d77e1eef2',
       'Content-Type': 'application/json'
    } */
-   url: 'http://localhost:3000',
+   // url: 'http://localhost:3000',
+   url: 'http://api.volserma.nomoreparties.co',
    headers: {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
