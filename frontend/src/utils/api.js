@@ -23,7 +23,6 @@ class Api {
          headers: {
             'Content-Type': 'application/json',
             authorization: `Bearer ${token}`,
-            //'Authorization': `Bearer ${jwt}`,
          },
       })
          .then(this._parseResponse);

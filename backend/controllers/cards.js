@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const Card = require('../models/card');
 
 const { SUCCESS_RES } = require('../utils/response-status');
@@ -11,7 +12,7 @@ module.exports.createCard = (req, res, next) => {
   Card.create({ name, link, owner })
     .then((card) => res.status(SUCCESS_RES).send(card))
     .catch((err) => {
-      if (err.name === 'ValidationError') {
+      if (err.name instanceof mongoose.Error.ValidationError) {
         next(new BadRequestError('Некорректные данные.'));
       } else {
         next(err);
@@ -42,7 +43,7 @@ module.exports.deleteCard = (req, res, next) => {
       }
     })
     .catch((err) => {
-      if (err.name === 'CastError') {
+      if (err.name instanceof mongoose.Error.CastError) {
         next(new BadRequestError('Переданы некорректные данные карточки'));
       } else {
         next(err);
@@ -64,7 +65,7 @@ module.exports.likeCard = (req, res, next) => {
       }
     })
     .catch((err) => {
-      if (err.name === 'CastError') {
+      if (err.name instanceof mongoose.Error.CastError) {
         next(new BadRequestError('Переданы некорректные данные карточки'));
       } else {
         next(err);
@@ -86,7 +87,7 @@ module.exports.dislikeCard = (req, res, next) => {
       }
     })
     .catch((err) => {
-      if (err.name === 'CastError') {
+      if (err.name instanceof mongoose.Error.CastError) {
         next(new BadRequestError('Переданы некорректные данные карточки'));
       } else {
         next(err);

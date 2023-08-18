@@ -1,5 +1,6 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const mongoose = require('mongoose');
 const User = require('../models/user');
 
 const NotFoundError = require('../utils/NotFoundError');
@@ -49,7 +50,7 @@ const createUser = (req, res, next) => {
       });
     })
     .catch((err) => {
-      if (err.name === 'ValidationError') {
+      if (err.name instanceof mongoose.Error.ValidationError) {
         next(new BadRequestError('Некорректные данные.'));
       } else if (err.code === 11000) {
         next(new ConflictError('Пользователь с таким email уже существует.'));
@@ -64,11 +65,6 @@ const login = (req, res, next) => {
 
   return User.findUserByCredentials(email, password)
     .then((user) => {
-      /*
-      if (!user || !password) {
-        return next(new BadRequestError('Неверный email или пароль.'));
-      } */
-
       const token = jwt.sign(
         { _id: user._id },
         NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret',
@@ -104,7 +100,7 @@ const updateUser = (req, res, next) => {
   )
     .then((user) => res.send(user))
     .catch((err) => {
-      if (err.name === 'ValidationError') {
+      if (err.name instanceof mongoose.Error.ValidationError) {
         return next(new BadRequestError('Некорректные данные.'));
       }
       return next(err);
@@ -123,7 +119,7 @@ const updateAvatar = (req, res, next) => {
   )
     .then((user) => res.send(user))
     .catch((err) => {
-      if (err.name === 'ValidationError') {
+      if (err.name instanceof mongoose.Error.ValidationError) {
         return next(new BadRequestError('Некорректные данные.'));
       }
       return next(err);

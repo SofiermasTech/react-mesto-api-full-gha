@@ -1,7 +1,6 @@
 import { checkResponse } from "../utils/checkResponse.js";
 export const BASE_URL = 'https://api.volserma.nomoreparties.co';
-// export const BASE_URL = 'https://auth.nomoreparties.co';
-// export const BASE_URL = 'http://localhost:3000';
+
 const headers = {
    'Accept': 'application/json',
    'Content-Type': 'application/json'
@@ -34,5 +33,4 @@ export function checkToken(token) {
       }
    })
       .then(checkResponse)
-      // .then(data => data)
 };
