@@ -1,8 +1,6 @@
 require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
-// const cookieParser = require('cookie-parser');
-const bodyParser = require('body-parser');
 const { errors } = require('celebrate');
 const cors = require('cors');
 // Защита сервера
@@ -33,9 +31,7 @@ const limiter = rateLimit({
 app.use(requestLogger);
 app.use(limiter);
 app.use(express.json()); // для собирания JSON-формата
-app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true })); // для приёма веб-страниц внутри POST-запроса
-// app.use(cookieParser());
 
 app.get('/crash-test', () => {
   setTimeout(() => {
